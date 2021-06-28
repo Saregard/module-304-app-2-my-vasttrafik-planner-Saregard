@@ -5,10 +5,15 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.simpleplanner.R
+import com.example.simpleplanner.adapter.StopsRecyclerViewAdapter
 import com.example.simpleplanner.models.StopData
 import com.example.simpleplanner.models.StopLocation
 import com.example.simpleplanner.repository.RetrofitClient
@@ -18,11 +23,16 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+
+    var progressBar: ProgressBar? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         supportActionBar?.title = getString(R.string.nearby_stops)
+
+        progressBar = findViewById(R.id.mainActivityProgressBar)
 
         checkLocationPermission()
     }
@@ -98,7 +108,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showItems(listOfStops: List<StopLocation>) {
+        progressBar?.visibility = View.GONE
 
+        val recyclerViewAdapter = StopsRecyclerViewAdapter(listOfStops)
+
+        val recyclerView = findViewById<RecyclerView>(R.id.mainActivityRecyclerView)
+        recyclerView?.apply {
+            setHasFixedSize(true)
+            adapter = recyclerViewAdapter
+            layoutManager = LinearLayoutManager(context)
+            visibility = View.VISIBLE
+        }
     }
 
     companion object{
