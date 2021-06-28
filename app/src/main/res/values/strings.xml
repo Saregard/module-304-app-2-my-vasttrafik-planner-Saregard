@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Simple planner</string>
     <string name="nearby_stops">Nearby Stops</string>
+    <string name="please_enable_location">Please enable the location permission</string>
+    <string name="unable_to_get_user_location">Error: Unable to get user location</string>
+    <string name="unable_to_retrieve_nearby_stops">Unable to retrieve nearby stops</string>
+    <string name="update_your_api_key">Please update yor API key</string>
+    <string name="internal_server_error">Internal Server Error. Please try again</string>
 </resources>
