@@ -1,7 +1,9 @@
 package com.example.simpleplanner.activities
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -24,7 +26,8 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    var progressBar: ProgressBar? = null
+    private var progressBar: ProgressBar? = null
+    private var userLocation: Location? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,8 +65,10 @@ class MainActivity : AppCompatActivity() {
             .enqueue(object: Callback<StopData> {
                 override fun onResponse(call: Call<StopData>, response: Response<StopData>) {
                     if (response.isSuccessful) {
-                        val listOfStops = response.body()?.locationList?.stopLocation ?: emptyList()
-                        showItems(listOfStops)
+                        val filteredListOfStops =
+                            response.body()?.locationList?.stopLocation?.distinctBy { it.name }
+                            ?: emptyList()
+                        showItems(filteredListOfStops)
                     }else {
                         val message = when(response.code()){
                             401 -> R.string.update_your_api_key
@@ -99,6 +104,7 @@ class MainActivity : AppCompatActivity() {
         val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         fusedLocationClient.lastLocation
             .addOnSuccessListener {
+                userLocation = it
                 queryNearbyStops(it.latitude, it.longitude)
             }
             .addOnFailureListener{
@@ -110,7 +116,11 @@ class MainActivity : AppCompatActivity() {
     private fun showItems(listOfStops: List<StopLocation>) {
         progressBar?.visibility = View.GONE
 
-        val recyclerViewAdapter = StopsRecyclerViewAdapter(listOfStops)
+        val recyclerViewAdapter = StopsRecyclerViewAdapter(listOfStops,userLocation, this) {
+            val intent = Intent(this, DepartureActivity::class.java)
+            intent.putExtra(DepartureActivity.KEY_STOP,it)
+            startActivity(intent)
+        }
 
         val recyclerView = findViewById<RecyclerView>(R.id.mainActivityRecyclerView)
         recyclerView?.apply {

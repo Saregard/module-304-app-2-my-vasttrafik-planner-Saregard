@@ -1,11 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recyclerViewCardView"
     android:layout_width="match_parent"
-    android:layout_height="100dp">
+    android:layout_height="80dp"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="5dp">
 
-    <TextView
-        android:id="@+id/recyclerViewTextViewStopName"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_margin="10dp">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/recyclerViewTextViewStopName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/icon_location"
+            android:drawablePadding="5dp"
+            android:drawableTint="@color/red"
+            android:textSize="18sp"
+            tools:text="Hello asd" />
+
+        <TextView
+            android:id="@+id/recyclerViewTextViewStopDistance"
+            tools:text="400 meter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/icon_walk"
+            android:drawablePadding="5dp"
+            android:layout_marginTop="8dp"
+            android:drawableTint="@color/black"
+            android:textSize="13sp"
+            android:layout_marginStart="3dp" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
