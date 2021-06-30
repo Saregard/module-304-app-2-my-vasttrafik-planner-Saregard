@@ -4,13 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.simpleplanner.R
+import com.example.simpleplanner.databinding.LayoutRecyclerViewDepartureBinding
 import com.example.simpleplanner.models.Departure
 
 class DepartureRecyclerViewAdapter(
@@ -27,27 +24,18 @@ class DepartureRecyclerViewAdapter(
 
     override fun getItemCount(): Int = listOfDepartures.size
 
+    class ViewHolder(private val binding: LayoutRecyclerViewDepartureBinding): RecyclerView.ViewHolder(binding.root){
 
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view){
-
-        private val textViewDirection =
-            view.findViewById<TextView>(R.id.recyclerViewDepartureTextViewDirection)
-        private val imageViewVehicleType = view.findViewById<ImageView>(R.id.recyclerViewImageViewVehicleType)
-        private val cardViewLineBackground = view.findViewById<CardView>(R.id.recyclerViewCardViewLineBackground)
-        private val textViewLine = view.findViewById<TextView>(R.id.recyclerViewTextViewLineNumber)
-        private val textViewDepartureTime = view.findViewById<TextView>(R.id.recyclerViewTextViewDepartureTime)
-        private val textViewTrack = view.findViewById<TextView>(R.id.recyclerViewTextViewTrack)
-
-        @SuppressLint("Range")
+        @SuppressLint("Range", "UseCompatLoadingForDrawables")
         fun bind(departure: Departure, context: Context){
-            textViewDirection.text = departure.direction
-            textViewDepartureTime.text = departure.time
-            textViewTrack.text = departure.track
-            textViewLine.apply {
+            binding.recyclerViewDepartureTextViewDirection.text = departure.direction
+            binding.recyclerViewTextViewDepartureTime.text = departure.time
+            binding.recyclerViewTextViewTrack.text = departure.track
+            binding.recyclerViewTextViewLineNumber.apply {
                 text = departure.sname
                 setTextColor(Color.parseColor(departure.fgColor))
             }
-            cardViewLineBackground.setCardBackgroundColor(Color.parseColor(departure.fgColor))
+            binding.recyclerViewCardViewLineBackground.setCardBackgroundColor(Color.parseColor(departure.fgColor))
 
             val vehicleDrawable = when(departure.type){
                 "TRAM" -> R.drawable.icon_tram
@@ -55,15 +43,15 @@ class DepartureRecyclerViewAdapter(
                 else -> R.drawable.icon_bus
             }
 
-            imageViewVehicleType.setImageDrawable(context.getDrawable(vehicleDrawable))
+            binding.recyclerViewImageViewVehicleType.setImageDrawable(context.getDrawable(vehicleDrawable))
 
         }
 
         companion object{
             fun create(parent: ViewGroup): ViewHolder{
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.layout_recycler_view_departure, parent, false)
-                return ViewHolder(view)
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = LayoutRecyclerViewDepartureBinding.inflate(layoutInflater, parent, false)
+                return ViewHolder(binding)
             }
         }
     }
