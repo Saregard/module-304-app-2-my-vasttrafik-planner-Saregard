@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.simpleplanner.R
 import com.example.simpleplanner.adapter.StopsRecyclerViewAdapter
+import com.example.simpleplanner.databinding.ActivityMainBinding
 import com.example.simpleplanner.models.StopData
 import com.example.simpleplanner.models.StopLocation
 import com.example.simpleplanner.repository.RetrofitClient
@@ -27,16 +28,17 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    private var progressBar: ProgressBar? = null
     private var userLocation: Location? = null
+
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportActionBar?.title = getString(R.string.nearby_stops)
-
-        progressBar = findViewById(R.id.mainActivityProgressBar)
 
         checkLocationPermission()
     }
@@ -117,7 +119,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showItems(listOfStops: List<StopLocation>) {
-        progressBar?.visibility = View.GONE
+        binding.mainActivityProgressBar.visibility = View.GONE
 
         val recyclerViewAdapter = StopsRecyclerViewAdapter(listOfStops,userLocation, this) {
             val intent = Intent(this, DepartureActivity::class.java)
