@@ -7,4 +7,5 @@
     <string name="update_your_api_key">Please update yor API key</string>
     <string name="internal_server_error">Internal Server Error. Please try again</string>
     <string name="meters_away">%1d meters</string>
+    <string name="unable_to_get_departure_data">Unable to get departure data</string>
 </resources>
