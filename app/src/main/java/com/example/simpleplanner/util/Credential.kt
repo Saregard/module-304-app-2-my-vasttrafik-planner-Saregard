@@ -3,6 +3,6 @@ package com.example.simpleplanner.util
 class Credential {
 
     companion object {
-        const val VASTRAFIK_KEY = "Bearer 79eceb59-89d6-3a31-ba54-a2bab4553f38"
+        const val VASTTRAFIK_KEY = "Bearer 1ef402e2-15e2-3c9d-9feb-f5834133eadc"
     }
 }

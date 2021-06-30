@@ -8,6 +8,8 @@ import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -57,6 +59,24 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             else -> {
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.map -> {
+                startActivity(Intent(this, MapActivity::class.java))
+                true
+            }
+            else -> {
+                false
             }
         }
     }

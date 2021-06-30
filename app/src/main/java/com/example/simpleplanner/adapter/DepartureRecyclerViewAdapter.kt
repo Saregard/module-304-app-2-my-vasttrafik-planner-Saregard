@@ -31,10 +31,10 @@ class DepartureRecyclerViewAdapter(
         fun bind(departure: Departure, context: Context) {
             binding.recyclerViewDepartureTextViewDirection.text = departure.direction
             binding.recyclerViewTextViewDepartureTime.text = departure.time
-            binding.recyclerViewTextViewTrack.text = departure.track
+            binding.recyclerViewTextViewTrack.text = context.getString(R.string.platform, departure.track)
             binding.recyclerViewTextViewLineNumber.apply {
                 text = departure.sname
-                setTextColor(Color.parseColor(departure.fgColor))
+                setTextColor(Color.parseColor(departure.bgColor))
             }
             binding.recyclerViewCardViewLineBackground.setCardBackgroundColor(
                 Color.parseColor(
