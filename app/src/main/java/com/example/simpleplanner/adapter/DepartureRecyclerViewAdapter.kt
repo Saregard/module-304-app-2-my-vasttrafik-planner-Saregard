@@ -13,7 +13,7 @@ import com.example.simpleplanner.models.Departure
 class DepartureRecyclerViewAdapter(
     private val listOfDepartures: List<Departure>,
     private val context: Context
-    ): RecyclerView.Adapter<DepartureRecyclerViewAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<DepartureRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder.create(parent)
@@ -24,10 +24,11 @@ class DepartureRecyclerViewAdapter(
 
     override fun getItemCount(): Int = listOfDepartures.size
 
-    class ViewHolder(private val binding: LayoutRecyclerViewDepartureBinding): RecyclerView.ViewHolder(binding.root){
+    class ViewHolder(private val binding: LayoutRecyclerViewDepartureBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("Range", "UseCompatLoadingForDrawables")
-        fun bind(departure: Departure, context: Context){
+        fun bind(departure: Departure, context: Context) {
             binding.recyclerViewDepartureTextViewDirection.text = departure.direction
             binding.recyclerViewTextViewDepartureTime.text = departure.time
             binding.recyclerViewTextViewTrack.text = departure.track
@@ -35,22 +36,31 @@ class DepartureRecyclerViewAdapter(
                 text = departure.sname
                 setTextColor(Color.parseColor(departure.fgColor))
             }
-            binding.recyclerViewCardViewLineBackground.setCardBackgroundColor(Color.parseColor(departure.fgColor))
+            binding.recyclerViewCardViewLineBackground.setCardBackgroundColor(
+                Color.parseColor(
+                    departure.fgColor
+                )
+            )
 
-            val vehicleDrawable = when(departure.type){
+            val vehicleDrawable = when (departure.type) {
                 "TRAM" -> R.drawable.icon_tram
                 "BOAT" -> R.drawable.icon_boat
                 else -> R.drawable.icon_bus
             }
 
-            binding.recyclerViewImageViewVehicleType.setImageDrawable(context.getDrawable(vehicleDrawable))
+            binding.recyclerViewImageViewVehicleType.setImageDrawable(
+                context.getDrawable(
+                    vehicleDrawable
+                )
+            )
 
         }
 
-        companion object{
-            fun create(parent: ViewGroup): ViewHolder{
+        companion object {
+            fun create(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = LayoutRecyclerViewDepartureBinding.inflate(layoutInflater, parent, false)
+                val binding =
+                    LayoutRecyclerViewDepartureBinding.inflate(layoutInflater, parent, false)
                 return ViewHolder(binding)
             }
         }

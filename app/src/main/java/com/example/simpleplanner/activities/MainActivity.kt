@@ -48,11 +48,11 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when(requestCode){
+        when (requestCode) {
             MY_LOCATION_PERMISSION_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults.first() == PackageManager.PERMISSION_GRANTED) {
                     getUserLocation()
-                }else {
+                } else {
                     Toast.makeText(this, R.string.please_enable_location, Toast.LENGTH_LONG).show()
                 }
             }
@@ -65,41 +65,48 @@ class MainActivity : AppCompatActivity() {
         RetrofitClient
             .instance
             .getNearbyStops(latitude, longitude)
-            .enqueue(object: Callback<StopData> {
+            .enqueue(object : Callback<StopData> {
                 override fun onResponse(call: Call<StopData>, response: Response<StopData>) {
                     if (response.isSuccessful) {
                         val filteredListOfStops =
                             response.body()?.locationList?.stopLocation?.distinctBy { it.name }
-                            ?: emptyList()
+                                ?: emptyList()
                         showItems(filteredListOfStops)
-                    }else {
-                        val message = when(response.code()){
+                    } else {
+                        val message = when (response.code()) {
                             401 -> R.string.update_your_api_key
                             500 -> R.string.internal_server_error
                             else -> R.string.unable_to_retrieve_nearby_stops
                         }
                         Toast.makeText(this@MainActivity, message, Toast.LENGTH_LONG).show()
-                        Log.e(TAG,"Error: $response")
+                        Log.e(TAG, "Error: $response")
                     }
                 }
 
                 override fun onFailure(call: Call<StopData>, t: Throwable) {
-                    Toast.makeText(this@MainActivity, R.string.unable_to_retrieve_nearby_stops, Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this@MainActivity,
+                        R.string.unable_to_retrieve_nearby_stops,
+                        Toast.LENGTH_LONG
+                    ).show()
                     Log.e(TAG, "Error: ${t.localizedMessage}")
                 }
             })
     }
 
     private fun checkLocationPermission() {
-        if(ContextCompat.checkSelfPermission(
+        if (ContextCompat.checkSelfPermission(
                 this,
-                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                getUserLocation()
-        }else{
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            getUserLocation()
+        } else {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                MY_LOCATION_PERMISSION_CODE)
+                MY_LOCATION_PERMISSION_CODE
+            )
         }
     }
 
@@ -111,8 +118,12 @@ class MainActivity : AppCompatActivity() {
                 userLocation = it
                 queryNearbyStops(it.latitude, it.longitude)
             }
-            .addOnFailureListener{
-                Toast.makeText(this, getString(R.string.unable_to_get_user_location), Toast.LENGTH_LONG).show()
+            .addOnFailureListener {
+                Toast.makeText(
+                    this,
+                    getString(R.string.unable_to_get_user_location),
+                    Toast.LENGTH_LONG
+                ).show()
                 Log.e(TAG, "Error: ${it.localizedMessage}")
             }
     }
@@ -120,9 +131,9 @@ class MainActivity : AppCompatActivity() {
     private fun showItems(listOfStops: List<StopLocation>) {
         binding.mainActivityProgressBar.visibility = View.GONE
 
-        val recyclerViewAdapter = StopsRecyclerViewAdapter(listOfStops,userLocation, this) {
+        val recyclerViewAdapter = StopsRecyclerViewAdapter(listOfStops, userLocation, this) {
             val intent = Intent(this, DepartureActivity::class.java)
-            intent.putExtra(DepartureActivity.KEY_STOP,it)
+            intent.putExtra(DepartureActivity.KEY_STOP, it)
             startActivity(intent)
         }
 
@@ -135,7 +146,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    companion object{
+    companion object {
         private val TAG = MainActivity::class.java.simpleName
         private const val MY_LOCATION_PERMISSION_CODE = 1000
     }

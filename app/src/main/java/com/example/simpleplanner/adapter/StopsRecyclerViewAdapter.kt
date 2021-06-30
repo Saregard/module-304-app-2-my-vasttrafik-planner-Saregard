@@ -17,13 +17,13 @@ class StopsRecyclerViewAdapter(
     private val userLocation: Location?,
     private val context: Context,
     private val clickListener: (StopLocation) -> Unit
-    ):
-    RecyclerView.Adapter<StopsRecyclerViewAdapter.ViewHolder>(){
+) :
+    RecyclerView.Adapter<StopsRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder.create(parent)
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int)  {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val stop = listOfStops[position]
         holder.bind(stop, userLocation, context, clickListener)
     }
@@ -42,7 +42,8 @@ class StopsRecyclerViewAdapter(
             stop: StopLocation,
             userLocation: Location?,
             context: Context,
-            clickListener: (StopLocation) -> Unit) {
+            clickListener: (StopLocation) -> Unit
+        ) {
             textViewStopName?.text = stop.name
 
             val stopLocation = Location("")
@@ -53,7 +54,7 @@ class StopsRecyclerViewAdapter(
             textViewDistanceToStop.text =
                 context.getString(R.string.meters_away, distanceToStop.roundToInt())
 
-            rootView.setOnClickListener{
+            rootView.setOnClickListener {
                 clickListener(stop)
             }
 

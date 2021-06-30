@@ -41,7 +41,6 @@ class DepartureActivity : AppCompatActivity() {
             }
 
             queryBussesForStop(it.id.toLong())
-
         }
     }
 
@@ -54,13 +53,14 @@ class DepartureActivity : AppCompatActivity() {
         RetrofitClient
             .instance
             .getDepartureTimesFromStop(stopId = stopId, date = getDate(), time = getTime())
-            .enqueue(object: Callback<BusData> {
+            .enqueue(object : Callback<BusData> {
                 override fun onResponse(call: Call<BusData>, response: Response<BusData>) {
-                    if (response.isSuccessful){
-                        val listOfDepartures = response.body()?.departureBoard?.departure ?: emptyList()
+                    if (response.isSuccessful) {
+                        val listOfDepartures =
+                            response.body()?.departureBoard?.departure ?: emptyList()
                         showItems(listOfDepartures)
-                    }else{
-                        val message = when (response.code()){
+                    } else {
+                        val message = when (response.code()) {
                             401 -> R.string.update_your_api_key
                             500 -> R.string.internal_server_error
                             else -> R.string.unable_to_retrieve_nearby_stops
@@ -77,24 +77,24 @@ class DepartureActivity : AppCompatActivity() {
     }
 
     @SuppressLint("SimpleDateFormat")
-    private fun getDate (): String {
+    private fun getDate(): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
         return dateFormat.format(Date())
     }
 
     @SuppressLint("SimpleDateFormat")
-    private fun getTime (): String {
+    private fun getTime(): String {
         val timeFormat = SimpleDateFormat("yyyy-MM-dd")
         return timeFormat.format(Date())
     }
 
-    private fun showItems(listOfDeparture: List<Departure>){
+    private fun showItems(listOfDeparture: List<Departure>) {
         progressBar?.visibility = View.GONE
 
         val recyclerViewAdapter = DepartureRecyclerViewAdapter(listOfDeparture, this)
 
         val recyclerView = findViewById<RecyclerView>(R.id.activityDepartureRecyclerView)
-        recyclerView?.apply{
+        recyclerView?.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = recyclerViewAdapter
