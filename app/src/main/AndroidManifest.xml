@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SimplePlanner">
-        <activity android:name=".activities.DepartureActivity"></activity>
+        <activity android:name=".activities.MapActivity"></activity>
+        <activity android:name=".activities.DepartureActivity" />
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
