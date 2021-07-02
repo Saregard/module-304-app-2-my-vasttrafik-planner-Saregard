@@ -34,11 +34,11 @@ class DepartureRecyclerViewAdapter(
             binding.recyclerViewTextViewTrack.text = context.getString(R.string.platform, departure.track)
             binding.recyclerViewTextViewLineNumber.apply {
                 text = departure.sname
-                setTextColor(Color.parseColor(departure.bgColor))
+                setTextColor(Color.parseColor(departure.fgColor))
             }
             binding.recyclerViewCardViewLineBackground.setCardBackgroundColor(
                 Color.parseColor(
-                    departure.fgColor
+                    departure.bgColor
                 )
             )
 
