@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recyclerViewCardView"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/recyclerViewTextViewStopName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/icon_location"
+            android:drawablePadding="5dp"
+            android:drawableTint="@color/red"
+            android:textSize="18sp"
+            tools:text="Hello asd" />
+
+        <TextView
+            android:id="@+id/recyclerViewTextViewStopDistance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/icon_walk"
+            android:drawablePadding="5dp"
+            android:drawableTint="@color/black"
+            android:textSize="13sp"
+            tools:text="400 meter" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
