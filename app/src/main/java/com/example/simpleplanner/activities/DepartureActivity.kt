@@ -84,7 +84,7 @@ class DepartureActivity : AppCompatActivity() {
 
     @SuppressLint("SimpleDateFormat")
     private fun getTime(): String {
-        val timeFormat = SimpleDateFormat("yyyy-MM-dd")
+        val timeFormat = SimpleDateFormat("kk:mm")
         return timeFormat.format(Date())
     }
 
