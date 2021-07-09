@@ -11,4 +11,5 @@
     <string name="platform">Platform %1$s</string>
     <string name="map_view">Map View</string>
     <string name="mapbox_access_token">pk.eyJ1Ijoic2FyZWdhcmQiLCJhIjoiY2txanF4dW16MDlweDJxcGhwN2RhbXB5YSJ9.G4uyGXJtA9BJvBkBgTH4mw</string>
+    <string name="min"> min</string>
 </resources>

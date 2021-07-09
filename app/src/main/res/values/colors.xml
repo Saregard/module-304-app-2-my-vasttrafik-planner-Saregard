@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#D81B60</color>
     <color name="vasttrafik_blue">#3DA5EA</color>
+    <color name="transparent">#07000000</color>
 </resources>
