@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
+import android.transition.Fade
 import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
@@ -44,7 +45,7 @@ class DepartureRecyclerViewAdapter(
 
             val timeLeft = time - currentTime
 
-            binding.timeLeftTextView.text = timeLeft.toString() + " min"
+            binding.timeLeftTextView.text = "$timeLeft min"
             binding.leftFrame.setBackgroundColor(Color.parseColor(departure.bgColor))
             binding.recyclerViewDepartureTextViewDirection.text = departure.direction
             binding.recyclerViewTextViewDepartureTime.text = departure.time
@@ -72,20 +73,16 @@ class DepartureRecyclerViewAdapter(
                 )
             )
 
-            binding.expandButton.setOnClickListener {
-                binding.expandButton.visibility = View.GONE
-                binding.collapseButton.visibility = View.VISIBLE
-                TransitionManager.beginDelayedTransition(binding.departureCardView)
-                binding.recyclerViewTextViewTrack.visibility = View.VISIBLE
-                binding.recyclerViewTextViewDepartureTime.visibility = View.VISIBLE
-            }
-
-            binding.collapseButton.setOnClickListener {
-                binding.expandButton.visibility = View.VISIBLE
-                binding.collapseButton.visibility = View.GONE
-                TransitionManager.beginDelayedTransition(binding.departureCardView)
-                binding.recyclerViewTextViewTrack.visibility = View.GONE
-                binding.recyclerViewTextViewDepartureTime.visibility = View.GONE
+            binding.departureCardView.setOnClickListener {
+                if (binding.recyclerViewTextViewTrack.visibility == View.GONE) {
+                    TransitionManager.beginDelayedTransition(binding.departureCardView)
+                    binding.recyclerViewTextViewTrack.visibility = View.VISIBLE
+                    binding.recyclerViewTextViewDepartureTime.visibility = View.VISIBLE
+                } else {
+                    TransitionManager.beginDelayedTransition(binding.departureCardView)
+                    binding.recyclerViewTextViewTrack.visibility = View.GONE
+                    binding.recyclerViewTextViewDepartureTime.visibility = View.GONE
+                }
             }
         }
 
