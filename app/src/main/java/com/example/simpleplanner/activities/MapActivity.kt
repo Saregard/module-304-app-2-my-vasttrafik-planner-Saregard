@@ -27,10 +27,10 @@ import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions
-import com.mapbox.mapboxsdk.style.expressions.Expression
-import com.mapbox.mapboxsdk.style.expressions.Expression.`in`
-import com.mapbox.mapboxsdk.style.expressions.Expression.raw
+import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions
+import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
 import java.lang.Exception
+import java.net.URI
 import java.util.*
 
 class MapActivity : AppCompatActivity() {
@@ -226,15 +226,10 @@ class MapActivity : AppCompatActivity() {
         binding.mapView.onDestroy()
     }
 
-
-
-
-
     //endregion
 
     companion object {
         private const val ICON_ID = "stop"
         var GBG_CENTER = LatLng(57.708691, 11.974782)
     }
-
 }
