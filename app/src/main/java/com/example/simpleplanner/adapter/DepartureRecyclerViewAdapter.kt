@@ -4,17 +4,20 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
-import android.transition.Fade
+import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.simpleplanner.R
 import com.example.simpleplanner.databinding.LayoutRecyclerViewDepartureBinding
 import com.example.simpleplanner.models.Departure
 import java.time.LocalTime
+
 
 class DepartureRecyclerViewAdapter(
     private val listOfDepartures: List<Departure>,
@@ -79,13 +82,29 @@ class DepartureRecyclerViewAdapter(
                     binding.recyclerViewTextViewTrack.visibility = View.VISIBLE
                     binding.recyclerViewTextViewDepartureTime.visibility = View.VISIBLE
                 } else {
-                    TransitionManager.beginDelayedTransition(binding.departureCardView)
-                    binding.recyclerViewTextViewTrack.visibility = View.GONE
-                    binding.recyclerViewTextViewDepartureTime.visibility = View.GONE
+                    hideInfo(context)
                 }
             }
         }
 
+        private fun hideInfo (context: Context){
+            val animation = AnimationUtils.loadAnimation(context, R.anim.fade_out)
+            animation.setAnimationListener(object: Animation.AnimationListener {
+
+                override fun onAnimationEnd(animation: Animation?) {
+                    binding.recyclerViewTextViewTrack.visibility = View.GONE
+                    binding.recyclerViewTextViewDepartureTime.visibility = View.GONE
+                }
+
+                override fun onAnimationRepeat(animation: Animation?) {}
+
+                override fun onAnimationStart(animation: Animation?) {
+                    TransitionManager.beginDelayedTransition(binding.departureCardView)
+                }
+            })
+            binding.recyclerViewTextViewTrack.startAnimation(animation)
+            binding.recyclerViewTextViewDepartureTime.startAnimation(animation)
+        }
 
         companion object {
             fun create(parent: ViewGroup): ViewHolder {
