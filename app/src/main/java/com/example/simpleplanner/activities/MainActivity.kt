@@ -30,7 +30,6 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
 
     private var userLocation: Location? = null
-
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,8 +63,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.menu_main, menu)
+        menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
@@ -73,6 +71,10 @@ class MainActivity : AppCompatActivity() {
         return when(item.itemId){
             R.id.map -> {
                 startActivity(Intent(this, MapActivity::class.java))
+                true
+            }
+            R.id.search -> {
+                startActivity(Intent(this, SearchActivity::class.java))
                 true
             }
             else -> {
