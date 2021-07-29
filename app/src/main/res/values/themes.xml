@@ -32,5 +32,9 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+     <style name="TitleStyle" parent="Widget.AppCompat.TextView">
+         <item name="android:fontFamily">@font/brookline_condensed</item>
+     </style>
+
 
 </resources>

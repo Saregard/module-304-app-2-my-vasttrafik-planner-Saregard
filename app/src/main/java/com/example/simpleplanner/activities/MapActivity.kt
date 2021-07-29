@@ -12,7 +12,6 @@ import com.example.simpleplanner.R
 import com.example.simpleplanner.databinding.ActivityMapBinding
 import com.example.simpleplanner.models.StopLocation
 import com.example.simpleplanner.util.StopsProvider
-import com.google.gson.Gson
 import com.mapbox.android.core.location.LocationEngineCallback
 import com.mapbox.android.core.location.LocationEngineResult
 import com.mapbox.android.core.permissions.PermissionsManager
@@ -28,10 +27,7 @@ import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions
-import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions
-import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
 import java.lang.Exception
-import java.net.URI
 import java.util.*
 
 class MapActivity : AppCompatActivity() {

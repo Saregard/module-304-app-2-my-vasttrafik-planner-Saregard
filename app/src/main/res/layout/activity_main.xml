@@ -1,17 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".activities.MainActivity">
+    tools:context=".activities.MainActivity"
+    android:background="@color/vasttrafik_blue">
+
+    <TextView
+        android:id="@+id/mainActivityTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/text_box"
+        android:text="@string/simple_planner"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp">
+
+        <ImageView
+            android:id="@+id/mainActivityBusIcon"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/icon_bus"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:src="@drawable/icon_tram"
+            android:id="@+id/mainActivityTramIcon"
+            android:layout_marginEnd="34dp"
+            android:layout_marginStart="34dp"
+            android:layout_width="60dp"
+            android:layout_height="55dp"
+            app:tint="@color/white"/>
+
+        <ImageView
+            android:id="@+id/mainActivityBoatIcon"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/icon_boat"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tint="@color/white"/>
+
+    </LinearLayout>
+
 
     <ProgressBar
         android:id="@+id/mainActivityProgressBar"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:visibility="gone"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layoutAnimation="@anim/layout_animation"

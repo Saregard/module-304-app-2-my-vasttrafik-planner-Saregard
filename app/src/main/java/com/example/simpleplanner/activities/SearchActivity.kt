@@ -1,8 +1,9 @@
 package com.example.simpleplanner.activities
 
-import android.R
+import android.content.Intent
 import android.os.Bundle
-import android.view.inputmethod.InputMethodManager
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.SearchView
 import android.widget.Toast
@@ -10,10 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.simpleplanner.databinding.ActivitySearchBinding
 import com.example.simpleplanner.models.StopLocation
 import com.example.simpleplanner.util.StopsProvider
-import com.google.gson.Gson
-import java.lang.Exception
-import java.util.*
-
 
 class SearchActivity : AppCompatActivity() {
 
@@ -27,10 +24,12 @@ class SearchActivity : AppCompatActivity() {
 
         binding.searchView.onActionViewExpanded()
 
-        searchResults(StopsProvider.gbgStops(resources, true))
+        searchResults(StopsProvider.gbgStops(resources))
     }
 
     private fun searchResults(stops: List<StopLocation>) {
+        var filteredList = stops
+
         val listOfStops = stops.map { it.name }
 
         val stopsAdapter : ArrayAdapter<String> = ArrayAdapter(
@@ -43,6 +42,7 @@ class SearchActivity : AppCompatActivity() {
                 binding.searchView.clearFocus()
                 if (listOfStops.contains(query)){
                     stopsAdapter.filter.filter(query)
+
                 }else{
                     Toast.makeText(applicationContext,"Item not found", Toast.LENGTH_LONG).show()
                 }
@@ -51,8 +51,18 @@ class SearchActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 stopsAdapter.filter.filter(newText)
+                filteredList = stops.filter { it.name.contains(newText.toString(), ignoreCase = true) }
                 return false
             }
         })
+
+        binding.searchListView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+            val clickedItem = filteredList[position]
+            val intent = Intent(this, DepartureActivity::class.java)
+            intent.putExtra(DepartureActivity.KEY_STOP, clickedItem)
+            startActivity(intent)
+
+
+        }
     }
 }
