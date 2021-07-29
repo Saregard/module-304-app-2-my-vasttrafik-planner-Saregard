@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
+import android.text.format.DateUtils
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.view.LayoutInflater
@@ -18,7 +19,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.simpleplanner.R
 import com.example.simpleplanner.databinding.LayoutRecyclerViewDepartureBinding
 import com.example.simpleplanner.models.Departure
+import java.text.SimpleDateFormat
+import java.time.Duration
+import java.time.Instant.now
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
+import java.util.*
+import kotlin.math.abs
 
 
 class DepartureRecyclerViewAdapter(
@@ -40,16 +48,18 @@ class DepartureRecyclerViewAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         @RequiresApi(Build.VERSION_CODES.O)
-        @SuppressLint("Range", "UseCompatLoadingForDrawables")
+        @SuppressLint("Range", "UseCompatLoadingForDrawables", "SetTextI18n")
         fun bind(departure: Departure, context: Context) {
-            val currentTime = (LocalTime.now().toSecondOfDay() / 60)
-            val hour = departure.time.substring(0..1).toInt()
-            val minute = departure.time.substring(3..4).toInt()
-            val time = (hour * 60) + minute
+            val currentTime = LocalTime.now()
+            val departureTime = LocalTime.parse(departure.time)
+            val timeInBetweenAsMin = abs(Duration.between(currentTime, departureTime).toMinutes().toInt())
+            val timeInBetweenAsHours = abs(Duration.between(currentTime, departureTime).toHours().toInt())
 
-            val timeLeft = time - currentTime
-
-            binding.timeLeftTextView.text = "$timeLeft min"
+            if (timeInBetweenAsMin <= 59){
+                binding.timeLeftTextView.text = "$timeInBetweenAsMin min"
+            }else{
+                binding.timeLeftTextView.text = "$timeInBetweenAsHours hours"
+            }
             binding.leftFrame.setBackgroundColor(Color.parseColor(departure.bgColor))
             binding.recyclerViewDepartureTextViewDirection.text = departure.direction
             binding.recyclerViewTextViewDepartureTime.text = departure.time
