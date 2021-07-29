@@ -9,6 +9,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.simpleplanner.databinding.ActivitySearchBinding
 import com.example.simpleplanner.models.StopLocation
+import com.example.simpleplanner.util.StopsProvider
+import com.google.gson.Gson
+import java.lang.Exception
+import java.util.*
 
 
 class SearchActivity : AppCompatActivity() {
@@ -23,11 +27,11 @@ class SearchActivity : AppCompatActivity() {
 
         binding.searchView.onActionViewExpanded()
 
-        searchResults(StopLocation())
+        searchResults(StopsProvider.gbgStops(resources, true))
     }
 
-    private fun searchResults(stops: StopLocation) {
-        val listOfStops = arrayOf("qwe", "asd", "zxc")
+    private fun searchResults(stops: List<StopLocation>) {
+        val listOfStops = stops.map { it.name }
 
         val stopsAdapter : ArrayAdapter<String> = ArrayAdapter(
             this, android.R.layout.simple_list_item_1, listOfStops)

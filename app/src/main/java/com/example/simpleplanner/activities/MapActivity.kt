@@ -11,6 +11,7 @@ import android.widget.Toast
 import com.example.simpleplanner.R
 import com.example.simpleplanner.databinding.ActivityMapBinding
 import com.example.simpleplanner.models.StopLocation
+import com.example.simpleplanner.util.StopsProvider
 import com.google.gson.Gson
 import com.mapbox.android.core.location.LocationEngineCallback
 import com.mapbox.android.core.location.LocationEngineResult
@@ -41,21 +42,7 @@ class MapActivity : AppCompatActivity() {
     private var mapStyle: Style? = null
     private var mapboxMap: MapboxMap? = null
     private var focusedStop: StopLocation? = null
-    private val listOfGbgStops: List<StopLocation> by lazy {
-        val inputStream = resources.openRawResource(R.raw.gbg_stops)
-        try {
-            val scanner = Scanner(inputStream)
-            val stringBuilder = StringBuilder()
-            while (scanner.hasNextLine()){
-                stringBuilder.append(scanner.nextLine())
-            }
-            Gson().fromJson(stringBuilder.toString(), Array<StopLocation>::class.java).asList()
-        }catch(exception: Exception){
-            emptyList<StopLocation>()
-        }finally{
-            inputStream.close()
-        }
-    }
+    private val listOfGbgStops: List<StopLocation> by lazy { StopsProvider.gbgStops(resources) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
