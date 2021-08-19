@@ -26,6 +26,6 @@ This then opens a link to the stops departures.
 
 If are not near your stop or dont know where to find it on the map,
 
-you can 
+you can use the search function.
 
 ![](https://im7.ezgif.com/tmp/ezgif-7-d711097de08e.gif)
