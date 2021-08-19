@@ -1,4 +1,8 @@
-# Nearby stops, and departures from selected stop
+# Main Screen / Departures
+
+
+This image shows the main screen that has your nearby stops,
+when you click your desired stop you get a new screen showing the departures from this stop.
 
 
 ![](https://im7.ezgif.com/tmp/ezgif-7-d711097de08e.gif)
