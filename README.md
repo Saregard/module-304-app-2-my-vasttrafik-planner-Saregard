@@ -2,6 +2,7 @@
 
 
 This image shows the main screen that has your nearby stops,
+
 when you click your desired stop you get a new screen showing the departures from this stop.
 
 
